@@ -17,13 +17,13 @@ public class Main {
         //2. Encode, encrypt or somehow obfuscate the data and save it to a file.
         //utilizing inversion of control for our security so we can set encode / decode for unit testing
         Security security = new Security((int) (Math.random() * 10) + 1);
-        int[] encodedJSON = security.encode(subscriptionChecker.getSubscriptions(123));
+        String encodedJSON = security.encode(subscriptionChecker.getSubscriptions(123));
 
         //write encoded JSON to file
-        FileUtil.writeToFile(encodedJSON);
+        FileUtil.writeToFile(encodedJSON, "output.txt");
 
         //3. Load the file you saved and decode or decrypt the data.
-        int[] encodedDataFromFile = FileUtil.convertFileContents(FileUtil.getFileContents());
+        String encodedDataFromFile = FileUtil.getFileContents("output.txt");
 
         //decode subscriptions from file
         String decodedJSON = security.decode(encodedDataFromFile);

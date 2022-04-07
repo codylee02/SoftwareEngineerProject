@@ -4,41 +4,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
 
 public class FileUtil {
 
-    public static void writeToFile(int[] arrToWrite) {
-        //going to try to write to output.txt
-        //if output.txt exists, we will overwrite
+    public static void writeToFile(String stringToWrite, String fileName) {
+        //going to try to write to file
+        //if file exists, we will overwrite
         try {
-            FileWriter writer = new FileWriter("output.txt", false);
-            writer.write(Arrays.toString(arrToWrite));
+            FileWriter writer = new FileWriter(fileName, false);
+            writer.write(stringToWrite);
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static String getFileContents() throws IOException {
-        return Files.readString(Path.of("output.txt"));
-    }
-
-    //converting string back to int[]
-    public static int[] convertFileContents(String fileContentsStr) {
-
-        //we need to get file contents back into an array
-        String[] fileContentsArr = fileContentsStr.replaceAll("\\[", "")
-                .replaceAll("]", "")
-                .split(", ");
-
-        int[] contentsArr = new int[fileContentsArr.length];
-
-        //loop through our string values and convert them to int for decode
-        for (int i = 0; i < fileContentsArr.length; i++) {
-            contentsArr[i] = Integer.parseInt(fileContentsArr[i]);
-        }
-
-        return contentsArr;
+    public static String getFileContents(String fileName) throws IOException {
+        return Files.readString(Path.of(fileName));
     }
 }
